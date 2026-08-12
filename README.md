@@ -32,47 +32,47 @@ The system contains three dimensionless dynamical variables:
 
 The two conversion rates are
 
-\[
+$$
 R_A = k_A A,
-\]
+$$
 
 and
 
-\[
+$$
 R_B =
 k_B B
 \frac{P^n}{K^n + P^n}.
-\]
+$$
 
 The corresponding balance equations are
 
-\[
+$$
 \frac{dP}{dt}
 =
 R_A + R_B,
-\]
+$$
 
-\[
+$$
 \frac{dA}{dt}
 =
 -R_A,
-\]
+$$
 
 and
 
-\[
+$$
 \frac{dB}{dt}
 =
 -R_B.
-\]
+$$
 
 The secondary channel contains a Hill-type nonlinear activation function,
 
-\[
+$$
 f(P)
 =
 \frac{P^n}{K^n + P^n},
-\]
+$$
 
 which introduces an effective positive feedback.
 
@@ -84,17 +84,17 @@ As `P` increases, the conversion efficiency of reservoir `B` increases. Since `B
 
 The model satisfies the exact balance relation
 
-\[
+$$
 P(t)+A(t)+B(t)
 =
 P_0+A_0+B_0.
-\]
+$$
 
 For the default normalized initial conditions,
 
-\[
+$$
 P_0+A_0+B_0=1.
-\]
+$$
 
 This conservation law provides a direct numerical consistency check for every computed solution.
 
@@ -147,17 +147,17 @@ For the reference configuration, the secondary reservoir becomes almost complete
 
 The instantaneous conversion rates are
 
-\[
-R_A=k_AA,
-\]
+$$
+R_A = k_A A,
+$$
 
 and
 
-\[
-R_B=
-k_BB
+$$
+R_B =
+k_B B
 \frac{P^n}{K^n+P^n}.
-\]
+$$
 
 ![Conversion rates](figures/reference_rates.png)
 
@@ -165,29 +165,29 @@ For the reference solution, the secondary channel becomes dynamically dominant b
 
 The approximate characteristic times obtained with the default numerical grid are
 
-\[
+$$
 t_{\mathrm{cross}}
 \simeq 0.72,
-\]
+$$
 
 for
 
-\[
-R_B\geq R_A,
-\]
+$$
+R_B \geq R_A,
+$$
 
 and
 
-\[
+$$
 t_{\mathrm{act}}
 \simeq 1.44,
-\]
+$$
 
 for
 
-\[
+$$
 P=K.
-\]
+$$
 
 These values illustrate that dynamical dominance of the secondary channel and the formal nonlinear activation scale are distinct quantities.
 
@@ -197,31 +197,31 @@ These values illustrate that dynamical dominance of the secondary channel and th
 
 The nonlinear response is controlled by
 
-\[
+$$
 f(P)
 =
 \frac{P^n}{K^n+P^n}.
-\]
+$$
 
 The activation reaches
 
-\[
-f(P)=\frac12
-\]
+$$
+f(P)=\frac{1}{2}
+$$
 
 when
 
-\[
+$$
 P=K.
-\]
+$$
 
 ![Nonlinear activation](figures/reference_activation.png)
 
 For the reference configuration,
 
-\[
-P_0\ll K,
-\]
+$$
+P_0 \ll K,
+$$
 
 so the secondary channel is initially strongly suppressed.
 
@@ -277,55 +277,55 @@ as well as the original SciPy solution object.
 
 A useful control configuration is obtained by setting
 
-\[
+$$
 k_B=0.
-\]
+$$
 
 The nonlinear secondary channel is then switched off and the system reduces to
 
-\[
+$$
 \frac{dA}{dt}
 =
--k_AA,
-\]
+-k_A A,
+$$
 
-\[
+$$
 \frac{dB}{dt}
 =
 0,
-\]
+$$
 
 and
 
-\[
+$$
 \frac{dP}{dt}
 =
-k_AA.
-\]
+k_A A.
+$$
 
 The exact solution is
 
-\[
+$$
 A(t)
 =
-A_0e^{-k_At},
-\]
+A_0 e^{-k_A t},
+$$
 
-\[
+$$
 B(t)=B_0,
-\]
+$$
 
 and
 
-\[
+$$
 P(t)
 =
 P_0+
 A_0
 \left(
-1-e^{-k_At}
+1-e^{-k_A t}
 \right).
-\]
+$$
 
 The numerical implementation is checked directly against this analytical limit.
 
@@ -347,7 +347,7 @@ The implementation includes several independent consistency checks.
 
 The relative conservation error is defined as
 
-\[
+$$
 \epsilon_{\mathrm{cons}}
 =
 \frac{
@@ -358,7 +358,7 @@ P+A+B-
 }{
 P_0+A_0+B_0
 }.
-\]
+$$
 
 For the reference solution, the maximum error is typically of order
 
@@ -372,9 +372,9 @@ which is close to machine precision.
 
 The numerical solution for
 
-\[
+$$
 k_B=0
-\]
+$$
 
 is compared directly with the exact analytical solution.
 
@@ -382,13 +382,13 @@ is compared directly with the exact analytical solution.
 
 The numerical evolution is tested to preserve
 
-\[
+$$
 P(t)\geq0,
 \qquad
 A(t)\geq0,
 \qquad
 B(t)\geq0.
-\]
+$$
 
 Tiny negative values at the level of floating-point roundoff may appear once a reservoir is numerically exhausted. These values are handled only during post-processing and do not modify the underlying solver.
 
@@ -396,11 +396,11 @@ Tiny negative values at the level of floating-point roundoff may appear once a r
 
 For the reference configuration,
 
-\[
+$$
 t_{\mathrm{cross}}
 <
 t_{\mathrm{act}},
-\]
+$$
 
 showing that the secondary channel can become dynamically dominant before the Hill activation reaches one half.
 
@@ -412,29 +412,29 @@ Beyond the single reference configuration, the package supports systematic Carte
 
 The current example explores
 
-\[
+$$
 k_B
 \in
 \{0.1,0.3,0.6,1,2,3\},
-\]
+$$
 
-\[
+$$
 K
 \in
 \{0.05,0.10,0.20,0.30,0.50\},
-\]
+$$
 
 and
 
-\[
+$$
 n
 \in
 \{1,2,4\},
-\]
+$$
 
 while keeping
 
-\[
+$$
 P_0=0.01,
 \qquad
 A_0=0.39,
@@ -442,15 +442,15 @@ A_0=0.39,
 B_0=0.60,
 \qquad
 k_A=0.15
-\]
+$$
 
 fixed.
 
 This produces a grid of
 
-\[
+$$
 6\times5\times3=90
-\]
+$$
 
 nonlinear simulations.
 
@@ -468,15 +468,15 @@ Each simulation is reduced to a set of physically interpretable summary quantiti
 
 The nonlinear activation time is defined by
 
-\[
+$$
 P(t_{\mathrm{act}})=K.
-\]
+$$
 
 Since
 
-\[
-f(K)=\frac12,
-\]
+$$
+f(K)=\frac{1}{2},
+$$
 
 this corresponds to the half-activation point of the Hill response.
 
@@ -484,11 +484,11 @@ this corresponds to the half-activation point of the Hill response.
 
 The crossover time is defined as the first time for which
 
-\[
+$$
 R_B(t_{\mathrm{cross}})
 \geq
 R_A(t_{\mathrm{cross}}).
-\]
+$$
 
 This measures when the secondary channel becomes dynamically dominant.
 
@@ -500,31 +500,31 @@ Two global conversion times are recorded.
 
 The 50% conversion time satisfies
 
-\[
+$$
 P(t_{50})
 =
 P_0
 +
 0.5(A_0+B_0),
-\]
+$$
 
 while the 90% conversion time satisfies
 
-\[
+$$
 P(t_{90})
 =
 P_0
 +
 0.9(A_0+B_0).
-\]
+$$
 
 The interval
 
-\[
+$$
 \Delta t_{50\rightarrow90}
 =
 t_{90}-t_{50}
-\]
+$$
 
 measures how rapidly the system evolves from intermediate to nearly complete conversion.
 
@@ -536,18 +536,18 @@ These quantities characterize the global evolution rather than only instantaneou
 
 The fraction of the secondary reservoir converted by the end of the simulation is
 
-\[
+$$
 F_B^{\mathrm{conv}}
 =
 1-
 \frac{B(t_{\mathrm{end}})}{B_0}.
-\]
+$$
 
 This quantity measures the actual depletion of the nonlinear reservoir.
 
 The fraction of the total converted material supplied by the secondary channel is
 
-\[
+$$
 F_B^{\mathrm{int}}
 =
 \frac{
@@ -557,16 +557,16 @@ B_0-B(t_{\mathrm{end}})
 +
 [B_0-B(t_{\mathrm{end}})]
 }.
-\]
+$$
 
 This integrated diagnostic is generally more informative than the maximum instantaneous fraction
 
-\[
+$$
 \max
 \left[
 \frac{R_B}{R_A+R_B}
 \right],
-\]
+$$
 
 which can become large at late times even when the secondary channel has only a modest global effect.
 
@@ -576,31 +576,31 @@ which can become large at late times even when the secondary channel has only a 
 
 The sweep also records the amount of secondary reservoir remaining when the system reaches the main conversion milestones,
 
-\[
+$$
 \frac{B(t_{50})}{B_0},
-\]
+$$
 
 and
 
-\[
+$$
 \frac{B(t_{90})}{B_0}.
-\]
+$$
 
 These quantities reveal whether the secondary reservoir is already nearly depleted when a given global conversion level is reached.
 
 The corresponding instantaneous secondary-channel fractions,
 
-\[
+$$
 \frac{R_B(t_{50})}
 {R_A(t_{50})+R_B(t_{50})},
-\]
+$$
 
 and
 
-\[
+$$
 \frac{R_B(t_{90})}
 {R_A(t_{90})+R_B(t_{90})},
-\]
+$$
 
 are also stored.
 
@@ -614,31 +614,31 @@ The parameter sweep reveals a natural lower limit for the 90% conversion time.
 
 If the secondary reservoir is converted sufficiently rapidly, the late evolution becomes limited only by the primary reservoir,
 
-\[
-A(t)=A_0e^{-k_At}.
-\]
+$$
+A(t)=A_0e^{-k_A t}.
+$$
 
-For a general target fraction \(q\),
+For a general target fraction $q$,
 
-\[
+$$
 P_q
 =
 P_0
 +
 q(A_0+B_0).
-\]
+$$
 
 In the limiting case where the secondary reservoir no longer delays the evolution,
 
-\[
+$$
 A(t_q^{\mathrm{primary}})
 =
 P_0+A_0+B_0-P_q.
-\]
+$$
 
 Therefore,
 
-\[
+$$
 t_q^{\mathrm{primary}}
 =
 \frac{1}{k_A}
@@ -647,21 +647,21 @@ t_q^{\mathrm{primary}}
 \frac{A_0}
 {P_0+A_0+B_0-P_q}
 \right].
-\]
+$$
 
 For
 
-\[
+$$
 q=0.9,
-\]
+$$
 
 and the default initial conditions,
 
-\[
+$$
 t_{90}^{\mathrm{primary}}
 \simeq
 9.14.
-\]
+$$
 
 This analytical result provides a physically motivated benchmark for the full nonlinear parameter sweep.
 
@@ -671,19 +671,19 @@ This analytical result provides a physically motivated benchmark for the full no
 
 The delay relative to the primary-limited reference is defined as
 
-\[
+$$
 \Delta t_{90}^{\mathrm{excess}}
 =
 t_{90}
 -
 t_{90}^{\mathrm{primary}}.
-\]
+$$
 
 A small value of
 
-\[
+$$
 \Delta t_{90}^{\mathrm{excess}}
-\]
+$$
 
 indicates that the secondary reservoir is converted sufficiently rapidly that the late-time evolution is controlled almost entirely by the primary channel.
 
@@ -704,65 +704,65 @@ For the current 90-run parameter grid:
 
 The characteristic times span approximately
 
-\[
+$$
 0.075
 \lesssim
 t_{\mathrm{act}}
 \lesssim
 16.0,
-\]
+$$
 
-\[
+$$
 0
 \lesssim
 t_{\mathrm{cross}}
 \lesssim
 10.64,
-\]
+$$
 
-\[
+$$
 0.62
 \lesssim
 t_{50}
 \lesssim
 16.2,
-\]
+$$
 
 and
 
-\[
+$$
 9.15
 \lesssim
 t_{90}
 \lesssim
 29.53.
-\]
+$$
 
 The analytical primary-limited benchmark is
 
-\[
+$$
 t_{90}^{\mathrm{primary}}
 \simeq
 9.14,
-\]
+$$
 
 while the excess delay spans approximately
 
-\[
+$$
 0.014
 \lesssim
 \Delta t_{90}^{\mathrm{excess}}
 \lesssim
 20.4.
-\]
+$$
 
-The fraction of the secondary reservoir remaining at \(t_{90}\) ranges from essentially zero to approximately
+The fraction of the secondary reservoir remaining at $t_{90}$ ranges from essentially zero to approximately
 
-\[
+$$
 \frac{B(t_{90})}{B_0}
 \simeq
 0.16.
-\]
+$$
 
 The sweep therefore contains both solutions that have nearly exhausted the secondary reservoir before reaching 90% global conversion and solutions where the secondary reservoir remains dynamically important much later in the evolution.
 
@@ -772,51 +772,51 @@ The sweep therefore contains both solutions that have nearly exhausted the secon
 
 The sweep shows that the different model parameters affect different aspects of the dynamics.
 
-### Dependence on \(k_B\)
+### Dependence on $k_B$
 
-The parameter \(k_B\) primarily controls the overall efficiency of the secondary conversion channel.
+The parameter $k_B$ primarily controls the overall efficiency of the secondary conversion channel.
 
-Increasing \(k_B\) strongly reduces
+Increasing $k_B$ strongly reduces
 
-\[
+$$
 t_{\mathrm{cross}},
 \qquad
 t_{50},
 \qquad
 t_{90},
-\]
+$$
 
 until the 90% conversion time approaches the analytical primary-limited value.
 
-At sufficiently large \(k_B\),
+At sufficiently large $k_B$,
 
-\[
+$$
 t_{90}
 \rightarrow
 t_{90}^{\mathrm{primary}},
-\]
+$$
 
 and further increases in secondary-channel efficiency no longer significantly accelerate the late evolution.
 
-### Dependence on \(K\)
+### Dependence on $K$
 
-The parameter \(K\) primarily controls the activation scale.
+The parameter $K$ primarily controls the activation scale.
 
-Increasing \(K\) delays
+Increasing $K$ delays
 
-\[
+$$
 t_{\mathrm{act}},
-\]
+$$
 
 and generally shifts the early and intermediate evolution to later times.
 
 Its effect on the asymptotic 90% conversion time becomes weaker once the secondary reservoir is efficiently depleted.
 
-### Dependence on \(n\)
+### Dependence on $n$
 
-The Hill exponent \(n\) controls the sharpness of nonlinear activation.
+The Hill exponent $n$ controls the sharpness of nonlinear activation.
 
-Larger values of \(n\) tend to delay the effective onset of secondary conversion and modify the early-to-intermediate evolution, while their influence on the late primary-limited conversion time is comparatively small.
+Larger values of $n$ tend to delay the effective onset of secondary conversion and modify the early-to-intermediate evolution, while their influence on the late primary-limited conversion time is comparatively small.
 
 ---
 
@@ -828,21 +828,21 @@ In one limit, secondary conversion remains slow enough to delay the global evolu
 
 These solutions display
 
-\[
+$$
 \Delta t_{90}^{\mathrm{excess}}
 \gg 0,
-\]
+$$
 
 retain a significant fraction of the secondary reservoir at late conversion milestones, and may fail to reach 90% conversion within the simulated time interval.
 
 In the opposite limit,
 
-\[
+$$
 \Delta t_{90}^{\mathrm{excess}}
 \rightarrow 0,
-\]
+$$
 
-the secondary reservoir is nearly exhausted by \(t_{90}\), and the late-time evolution approaches the analytical primary-limited solution.
+the secondary reservoir is nearly exhausted by $t_{90}$, and the late-time evolution approaches the analytical primary-limited solution.
 
 These behaviours motivate a future classification in terms of
 
@@ -1021,6 +1021,7 @@ nonlinear-balance-solver/
 ├── pyproject.toml
 ├── requirements.txt
 ├── README.md
+├── LICENSE
 │
 ├── figures/
 │   ├── reference_evolution.png
@@ -1104,7 +1105,5 @@ Future development will focus on:
 ---
 
 ## License
-
-
 
 This project is released under the MIT License. See [LICENSE](LICENSE) for details.
